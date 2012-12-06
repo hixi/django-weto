@@ -1,3 +1,8 @@
+Warning
+-------
+
+This is not stable software, and comes without any warranties - use at own risk.
+
 Why this name?
 --------------
 
@@ -9,6 +14,10 @@ What is this?
 
 ``django-weto`` despite its simplicity has the pompous mission of automagically
 converting on-the-fly views' HTML output to PDF --without modifying your views.
+
+It has originally been developed by ``directeur`` https://github.com/directeur/django-pdf,
+forked from there and altered to work with wkhtmltopdf.
+
 
 Requirements
 ------------
