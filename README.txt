@@ -1,29 +1,35 @@
+Why this name?
+--------------
+
+it is short, and not already taken - and most importantly, will most likely not be taken anytime soon ;-)
+
+
 What is this?
 -------------
 
-``django-wkhtmltopdf`` despite its simplicity has the pompous mission of automagically
+``django-weto`` despite its simplicity has the pompous mission of automagically
 converting on-the-fly views' HTML output to PDF --without modifying your views.
 
 Requirements
 ------------
 
-django-pdf depends on wkhtml:
+django-weto depends on wkhtmltopdf:
 http://code.google.com/p/wkhtmltopdf/wiki/Usage
 
 
-How to use django-pdf
+How to use django-weto
 ----------------------------
 
 There are really 4 steps to setting it up with your projects.
 0. Install this tiny app into you environment, ie (using virtualenv):
-    pip install https://github.com/hixi/django-pdf/tarball/master#egg=django_wkhtmltopdf-0.1-alpha-2
+    pip install https://github.com/hixi/django-pdf/tarball/master#egg=django-weto-0.1-alpha-3
 
 1. List this application in the ``INSTALLED_APPS`` portion of your settings
    file.  Your settings file might look something like::
    
        INSTALLED_APPS = (
            # ...
-           'django_wkhtmltopdf',
+           'weto',
        )
 
 2. Install the pdf middleware. Your settings file might look something
@@ -31,7 +37,7 @@ There are really 4 steps to setting it up with your projects.
    
        MIDDLEWARE_CLASSES = (
            # ...
-           'django_wkhtmltopdf.middleware.PdfMiddleware',
+           'weto.middleware.PdfMiddleware',
        )
 
 3. If it's not already added in your setup, add the request context processor.
@@ -53,7 +59,7 @@ There are really 4 steps to setting it up with your projects.
         "django.core.context_processors.i18n",
         "django.core.context_processors.media",
         "django.core.context_processors.request", #<-- this line is necessary to access request in template tags
-        "django_wkhtmltopdf.context_processors.check_format", #<-- this line
+        "weto.context_processors.check_format", #<-- this line
     )
 
 That's it, now all it takes to generate a PDF version of your page is to add:
@@ -86,7 +92,7 @@ PDF output.
 Bonus:
 -------
 
-You have a new template tag {{ pdf_link }} which will generate a link to the PDF
+You have a new template tag {% pdf_link %} which will generate a link to the PDF
 version of the current page. :)
 
 P.S.
@@ -96,9 +102,9 @@ your settings.
 
 Look:
 
-REQUEST_FORMAT_NAME = getattr(settings, 'REQUEST_FORMAT_NAME', 'format')
-REQUEST_FORMAT_PDF_VALUE = getattr(settings, 'REQUEST_FORMAT_PDF_VALUE', 'pdf')
-TEMPLATE_PDF_CHECK = getattr(settings, 'TEMPLATE_PDF_CHECK',
+WETO_REQUEST_FORMAT_NAME = getattr(settings, 'REQUEST_FORMAT_NAME', 'format')
+WETO_REQUEST_FORMAT_PDF_VALUE = getattr(settings, 'REQUEST_FORMAT_PDF_VALUE', 'pdf')
+WETO_TEMPLATE_PDF_CHECK = getattr(settings, 'TEMPLATE_PDF_CHECK',
 'DJANGO_PDF_OUTPUT')
 
 That's it!  
