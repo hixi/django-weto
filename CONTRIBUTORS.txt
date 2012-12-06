@@ -1,1 +1,2 @@
-Karim A. (Directeur) <directeur@gmail.com>
+Karim A. (Directeur) <directeur@gmail.com> (original code)
+Nicola Jordan <nic@njo.ch> (changed to work with wkhtmltopdf)
