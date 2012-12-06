@@ -1,0 +1,23 @@
+{% load pdf_tags %}<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ flatpage.title }}</title>
+</head>
+<body>
+
+{% if not DJANGO_PDF_OUTPUT %}
+This should only be visible on the html. ({% pdf_link "pdf" %})
+<ul id="menu">
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+</ul>
+{% endif %}
+
+{% if DJANGO_PDF_OUTPUT %}
+<p>This should only be visible in the pdf</p>
+{% endif %}
+
+{{ flatpage.content }}
+</body>
+</html>
