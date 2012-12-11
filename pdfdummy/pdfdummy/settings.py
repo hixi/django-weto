@@ -31,7 +31,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'it'
 
 SITE_ID = 1
 
@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_wkhtmltopdf.middleware.PdfMiddleware',
+    'weto.middleware.PdfMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS=(
@@ -110,7 +110,7 @@ TEMPLATE_CONTEXT_PROCESSORS=(
     "django.core.context_processors.tz",
     'django.core.context_processors.request',
     "django.contrib.messages.context_processors.messages",
-    "django_wkhtmltopdf.context_processors.check_format",
+    "weto.context_processors.check_format",
     )
 
 ROOT_URLCONF = 'pdfdummy.urls'

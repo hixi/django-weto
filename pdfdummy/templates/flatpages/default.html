@@ -7,6 +7,15 @@
 
 {% if not DJANGO_PDF_OUTPUT %}
 This should only be visible on the html. ({% pdf_link "pdf" %})
+    ({% pdf_link title="pdf with toc" toc="True" %})
+    ({% pdf_link "pdf without toc" toc=False %})<br />
+
+    ({% pdf_link "pdf with footer, no toc" footer="Yes" %})
+    ({% pdf_link "pdf with footer and header, no toc" header="Yes" footer="Yes"  %})
+    ({% pdf_link "pdf with footer, header and toc" toc="Yes" footer="Yes" header="Yes" %})<br />
+
+    ({% pdf_link "pdf with footer, header and toc and different name" toc="Yes" footer="Yes" header="Yes" pdf_name="hallo_du_pdf" %})
+
 <ul id="menu">
     <li>menu item</li>
     <li>menu item</li>
