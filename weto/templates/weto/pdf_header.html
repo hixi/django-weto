@@ -1,2 +1,16 @@
-<p>This is just an example header, please provide your own!</p>
-<hr />
+<html><head><script type="text/javascript">
+    function subst() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+        var x=['doctitle', 'title', 'frompage','topage','page','webpage','section','subsection','subsubsection', 'date', 'time'];
+        for (var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+    }</script>
+</head>
+<body style="border:0; margin: 0;" onload="subst()">
+<span class="doctitle"></span>: <span class="section"></span> - <span class="subsection"></span> <span class="title"></span>
+</body>
+</html>
