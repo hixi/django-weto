@@ -13,6 +13,16 @@ WETO_LIB_PATH = getattr(settings, 'WETO_LIB_PATH', '/usr/bin/wkhtmltopdf')
 WETO_OPTS = getattr(settings, 'WETO_OPTS', ["--dpi", "600", "--page-size", "A4"])
 DEBUG = getattr(settings, 'DEBUG', False)
 
+def replace_relative_with_absolute_links(site_url, content):
+    #    replace urls with absolute urls including site and ssl/non-ssl
+    content = re.sub(r'href="/', r'href="%s/' % site_url, content)
+    content = re.sub(r'src="/', r'src="%s/' % site_url, content)
+    #    replace relative urls with absolute urls including site and ssl/non-ssl,
+    #    not sure if this really works this way...
+    content = re.sub(r'href="!http', r'href="%s/' % site_url, content)
+    content = re.sub(r'src="!http', r'src="%s/' % site_url, content)
+    return content
+
 def transform_to_pdf(response, request):
     toc = request.GET.get("toc", None)
     footer = request.GET.get("footer", None)
@@ -26,27 +36,21 @@ def transform_to_pdf(response, request):
     current_site = Site.objects.get_current()
     site_url += current_site.domain
     site_url = str(site_url)
-    #    replace urls with absolute urls including site and ssl/non-ssl
-    content = re.sub(r'href="/', r'href="%s/' % site_url, content)
-    content = re.sub(r'src="/', r'src="%s/' % site_url, content)
-    #    replace relative urls with absolute urls including site and ssl/non-ssl,
-    #    not sure if this really works this way...
-    content = re.sub(r'href="!http', r'href="%s/' % site_url, content)
-    content = re.sub(r'src="!http', r'src="%s/' % site_url, content)
+    content = replace_relative_with_absolute_links(site_url, content)
     string_content = StringIO.StringIO(content)
     popen_command = [WETO_LIB_PATH,] + WETO_OPTS
     language = translation.get_language()
     if header:
         header_file = NamedTemporaryFile(suffix='.html')
         header = render_to_string('weto/pdf_header.html', request)
-        header_file.write(header)
+        header_file.write(replace_relative_with_absolute_links(site_url, header))
         header_file.flush()
         header_file.seek(0)
         popen_command += ['--header-html', header_file.name]
     if footer:
         footer_file = NamedTemporaryFile(suffix='.html')
         footer = render_to_string('weto/pdf_footer.html', request)
-        footer_file.write(footer)
+        footer_file.write(replace_relative_with_absolute_links(site_url, footer))
         footer_file.flush()
         footer_file.seek(0)
         popen_command += ['--footer-html', footer_file.name]
