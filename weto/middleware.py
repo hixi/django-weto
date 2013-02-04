@@ -80,6 +80,8 @@ def transform_to_pdf(response, request):
     string_content.seek(0)
     pdf = sub.communicate(input=string_content.read())
     string_content.close()
+    # don't know why, but I need to first remove the content, before writing to it, else it appends the content
+    response.content = ''
     response.write(pdf[0])
     if header:
         header_file.close()
